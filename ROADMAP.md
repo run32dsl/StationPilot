@@ -13,7 +13,7 @@
 | Sujet | Décision | Justification |
 |---|---|---|
 | Ordre des modules | 1. Imaging → 2. Déploiement logiciel → 3. Prise de main à distance → 4. Migration de profils | L'imaging est jugé le besoin le plus structurant pour démarrer un parc, avant même le déploiement applicatif. |
-| Stratégie technique | S'appuyer sur des briques open source existantes pour un MVP rapide, dans une architecture modulaire qui permette de réécrire une brique plus tard si elle s'avère inadaptée (licence, sécurité, maintenabilité) | Vitesse pour le MVP sans s'enfermer dans un choix technique irréversible. |
+| Stratégie technique | **La stratégie dépend du module**, pas d'une règle unique : déploiement logiciel → développement maison façon WAPT (agent léger + pull HTTP + paquets auto-suffisants signés) ; imaging → réutilisation du moteur **FOG Project** ; prise de main → réutilisation **RustDesk** (`hbbs`/`hbbr`) ; migration de profils → développement maison (aucune brique mature). Dans tous les cas, **un seul agent et une seule console StationPilot** côté utilisateur : les moteurs tiers sont pilotés en coulisses, jamais exposés directement à l'administrateur. | Le bon choix dépend de la complexité/criticité sécurité du moteur sous-jacent : simple à reconstruire (déploiement logiciel) → from scratch pour une maîtrise totale du format ; complexe/sécurité-critique (PXE/imaging, cryptographie réseau de la prise de main) → réutiliser une brique déjà éprouvée plutôt que de réinventer une roue à haut risque. |
 | Périmètre OS (V1) | Postes clients Windows uniquement | Cible = parc Windows actuel de la majorité des collectivités. |
 | Stack technique (socle agent/serveur) | **Python**, à confirmer/creuser en phase 0/1 | Seul langage maîtrisé par le porteur du projet parmi les options envisagées ; écosystème riche pour AD/ACL (pywin32) et pour du scripting Windows. C#/.NET écartés par manque de compétence actuelle. |
 | Gouvernance | Solo / petit noyau au démarrage, recherche de portage institutionnel (ADULLACT, DINUM, association d'élus, etc.) une fois un POC solide | Permet d'avancer vite sans dépendre d'un accord collectif, tout en gardant l'objectif de légitimité institutionnelle. |
@@ -25,7 +25,7 @@
 
 - **Souveraineté réelle, pas seulement « open source »** : auto-hébergeable, pas de dépendance à un cloud ou service tiers non européen, auditable de bout en bout.
 - **Architecture modulaire** : chaque module (imaging, déploiement logiciel, prise de main, migration de profils) doit pouvoir être développé, testé et remplacé indépendamment, derrière une interface commune (inventaire, authentification, journalisation, console d'administration).
-- **Réutiliser avant de réécrire**, mais documenter dès le départ les critères qui justifieraient une réécriture (licence incompatible AGPL, gouvernance fermée, dépendance non européenne, dette technique).
+- **Réutiliser avant de réécrire, mais pas de règle unique** : le choix se fait module par module selon la complexité/criticité sécurité du moteur sous-jacent (cf. §1 « Stratégie technique »). Documenter dès le départ les critères qui justifieraient de changer d'avis (licence incompatible AGPL, gouvernance fermée, dépendance non européenne, dette technique).
 - **Cibler l'existant réel des collectivités** : postes Windows joints à un AD on-prem ou Azure AD/Entra ID, GPO, parfois flotte hétérogène de versions Windows.
 
 ## 3. Phase 0 — Analyse de l'existant (en cours)
@@ -73,9 +73,9 @@ Objectif : cartographier précisément les briques candidates avant d'écrire la
 
 ## 6. Phase 3 — Module Déploiement de logiciels
 
-- Format de paquet applicatif (à définir : réutiliser un format existant compatible AGPL, ou en définir un simple).
+- **Développement maison, inspiré du mécanisme éprouvé du secteur** (décidé en §1) : agent léger qui interroge le serveur en pull HTTP/HTTPS, paquets applicatifs auto-suffisants (archive + script d'installation/désinstallation + métadonnées de version/dépendances) **signés cryptographiquement** et vérifiés par l'agent avant exécution. Pas de réutilisation d'un format tiers (ex. opsi) : le format est conçu et maîtrisé de bout en bout par StationPilot dès la V1.
 - Dépôt de paquets, ciblage par groupe/OU, planification, rapports de déploiement.
-- Gestion des mises à jour Windows (optionnel en V1, peut être une itération ultérieure).
+- **Gestion des mises à jour Windows : fonctionnalité requise du module**, pas une option — confirmé comme besoin réel. À dimensionner dès la conception de l'architecture (ex. miroir/relais de mises à jour auto-hébergé, ou intégration avec un serveur WSUS existant plutôt que réinventer tout le mécanisme de distribution de patchs Microsoft). Reste à trancher : construire un mini-WSUS maison vs. piloter un WSUS existant via StationPilot (à creuser en phase 0/1, cf. §11).
 
 ## 7. Phase 4 — Module Prise de main à distance
 
@@ -111,4 +111,5 @@ Objectif : cartographier précisément les briques candidates avant d'écrire la
 - Confirmer la compatibilité Windows 11/Server 2022+ de FOG Project et d'opsi directement auprès des projets (dépôts GitHub / documentation officielle, pas seulement des sources tierces).
 - Revérifier le statut actuel du module de gestion des licences logicielles d'opsi (libre vs. développement co-financé non publié) sur opsi.org avant de s'appuyer sur cette fonctionnalité.
 - Confirmation du choix Python pour l'agent/serveur après un premier POC technique (notamment sur l'imaging, le plus exigeant côté bas niveau Windows).
-- Modalités précises de packaging/format de paquet pour le module déploiement logiciel.
+- Spécification détaillée du format de paquet maison (structure de l'archive, format de signature, modèle de dépendances) — stratégie actée en §6, reste à concevoir précisément.
+- Mécanisme de déploiement des mises à jour Windows : mini-WSUS maison vs. pilotage d'un WSUS existant via StationPilot.
