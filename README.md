@@ -6,19 +6,18 @@ collectivités territoriales et le secteur public français/européen.
 Le projet réunit, sous une architecture modulaire commune, quatre briques
 historiquement séparées :
 
-1. **Création & déploiement d'images système** (façon MDT)
-2. **Déploiement de logiciels** (façon WAPT / Windows Store interne)
+1. **Création & déploiement d'images système**
+2. **Déploiement de logiciels** (catalogue en libre-service pour les postes gérés)
 3. **Prise de main à distance** (support auto-hébergé)
-4. **Migration de profils utilisateurs** (façon ReACL, pour les migrations de domaine AD)
+4. **Migration de profils utilisateurs** (lors des migrations de domaine Active Directory)
 
 ## Pourquoi ce projet ?
 
 Les collectivités territoriales dépendent aujourd'hui soit de solutions
-propriétaires, soit de briques libres dont la gouvernance ou la licence
-peut évoluer défavorablement (cf. l'évolution récente de WAPT Community vs
-Enterprise). Ce projet vise une alternative **auditable, auto-hébergeable et
-sous licence copyleft forte (AGPL-3.0)**, pensée dès le départ pour ne pas
-pouvoir être refermée par un acteur tiers.
+propriétaires, soit de briques libres dont la gouvernance ou la licence peut
+évoluer défavorablement avec le temps. Ce projet vise une alternative
+**auditable, auto-hébergeable et sous licence copyleft forte (AGPL-3.0)**,
+pensée dès le départ pour ne pas pouvoir être refermée par un acteur tiers.
 
 ## État du projet
 
