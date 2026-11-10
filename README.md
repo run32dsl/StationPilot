@@ -1,4 +1,4 @@
-# [Nom du projet à définir]
+# StationPilot
 
 Suite libre et souveraine de gestion de parc informatique Windows pour les
 collectivités territoriales et le secteur public français/européen.

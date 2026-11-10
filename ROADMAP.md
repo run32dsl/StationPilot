@@ -1,4 +1,4 @@
-# Roadmap — [Nom du projet à définir] (ex. "LibreWapt" / "SuiteSouveraine")
+# Roadmap — StationPilot
 
 > Suite libre de gestion de parc Windows pour les collectivités territoriales :
 > création & déploiement d'images système, déploiement de logiciels,
@@ -17,6 +17,7 @@
 | Stack technique (socle agent/serveur) | **Python**, à confirmer/creuser en phase 0/1 | Seul langage maîtrisé par le porteur du projet parmi les options envisagées ; écosystème riche pour AD/ACL (pywin32) et pour du scripting Windows. C#/.NET écartés par manque de compétence actuelle. |
 | Gouvernance | Solo / petit noyau au démarrage, recherche de portage institutionnel (ADULLACT, DINUM, association d'élus, etc.) une fois un POC solide | Permet d'avancer vite sans dépendre d'un accord collectif, tout en gardant l'objectif de légitimité institutionnelle. |
 | Licence | **AGPL-3.0** | Empêche qu'un tiers referme une version modifiée ou hébergée en SaaS (le risque exact qui s'est matérialisé avec WAPT Enterprise/Community). |
+| Nom du projet | **StationPilot** | Retenu, disponible. |
 
 ## 2. Principes directeurs
 
@@ -92,6 +93,6 @@ Objectif : cartographier précisément les briques candidates avant d'écrire la
 
 - Choix définitif de la brique imaging (FOG Project vs Clonezilla vs autre).
 - Confirmation du choix Python pour l'agent/serveur après un premier POC technique (notamment sur l'imaging, le plus exigeant côté bas niveau Windows).
-- Nom définitif du projet, identité du dépôt public.
 - Choix de la brique d'inventaire (GLPI-Agent vs développement interne minimal).
 - Modalités précises de packaging/format de paquet pour le module déploiement logiciel.
+- Nom de compte/organisation GitHub et paramètres du dépôt public (visibilité, branche par défaut, etc.).
