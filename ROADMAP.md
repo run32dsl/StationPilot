@@ -107,7 +107,7 @@ Objectif : cartographier précisément les briques candidates avant d'écrire la
 
 ## 11. Décisions encore ouvertes (à trancher en phase 0/1)
 
-- Choix définitif de la brique imaging : **FOG Project privilégié** pour sa philosophie de gestion de parc (cf. comparatif §3), **à confirmer par un POC réel de déploiement d'une image Windows 11** avant tout engagement d'architecture. Clonezilla/partclone reste la solution de repli si FOG échoue sur la compatibilité Windows 11/UEFI/Secure Boot.
+- Choix définitif de la brique imaging : **FOG Project privilégié** pour sa philosophie de gestion de parc (cf. comparatif §3), **à confirmer par un POC réel de déploiement d'une image Windows 11** avant tout engagement d'architecture (procédure détaillée : [docs/poc-imaging-fog.md](./docs/poc-imaging-fog.md)). Clonezilla/partclone reste la solution de repli si FOG échoue sur la compatibilité Windows 11/UEFI/Secure Boot.
 - Confirmer la compatibilité Windows 11/Server 2022+ de FOG Project et d'opsi directement auprès des projets (dépôts GitHub / documentation officielle, pas seulement des sources tierces).
 - Revérifier le statut actuel du module de gestion des licences logicielles d'opsi (libre vs. développement co-financé non publié) sur opsi.org avant de s'appuyer sur cette fonctionnalité.
 - Confirmation du choix Python pour l'agent/serveur après un premier POC technique (notamment sur l'imaging, le plus exigeant côté bas niveau Windows).
